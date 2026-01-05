@@ -52,13 +52,17 @@ const SVGMorph = ({
 }) => {
   const progress = useMotionValue(0);
 
+  // useTransform parms => motion value, input range, output range, options
+  // input and output range i.e array must be of same length
   const path = useTransform(progress, [0, 1], paths, {
+    // interpolate params => from shape, to shape, options
     mixer: (a, b) => interpolate(a, b, { maxSegmentLength: 1 }),
   });
 
   useEffect(() => {
     const targetValue = isPlaying ? 1 : 0;
 
+    // animate creates a sequence for the morphing to work
     animate(progress, targetValue, {
       duration: 0.5,
       ease: "easeInOut",
